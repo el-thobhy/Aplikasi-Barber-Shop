@@ -1,10 +1,13 @@
 package com.elthobhy.barbershop.datamodels;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,6 +25,17 @@ public class MasterCustomer extends BaseEntities {
     private String phone;
     @Column(name = "address", length = 255, nullable = false)
     private String address;
+
+    @OneToMany(mappedBy = "masterCustomer")
+    private List<TransactionOrder> orders;
+
+    public List<TransactionOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<TransactionOrder> orders) {
+        this.orders = orders;
+    }
 
     public int getId() {
         return id;

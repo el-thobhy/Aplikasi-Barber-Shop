@@ -1,8 +1,7 @@
 package com.elthobhy.barbershop.datamodels;
 
 import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,11 +28,32 @@ public class TransactionOrder extends BaseEntities {
     @JoinColumn(name = "customerId", insertable = false, updatable = false)
     private MasterCustomer masterCustomer;
 
+    @OneToMany(mappedBy = "transactionOrder")
+    private List<TransactionOrderServices> orderServices;
+
+    @OneToOne(mappedBy = "transactionOrder")
+    private TransactionOrderTeam orderTeams;
+
     @Column(name = "orderDate")
-    @CreationTimestamp
     private LocalDateTime orderDate;
     @Column(name = "status")
     private StatusOrder status;
+
+    public TransactionOrderTeam getOrderTeams() {
+        return orderTeams;
+    }
+
+    public void setOrderTeams(TransactionOrderTeam orderTeams) {
+        this.orderTeams = orderTeams;
+    }
+
+    public List<TransactionOrderServices> getOrderServices() {
+        return orderServices;
+    }
+
+    public void setOrderServices(List<TransactionOrderServices> orderServices) {
+        this.orderServices = orderServices;
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -47,14 +69,6 @@ public class TransactionOrder extends BaseEntities {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public MasterCustomer getMasterCustomer() {
-        return masterCustomer;
-    }
-
-    public void setMasterCustomer(MasterCustomer masterCustomer) {
-        this.masterCustomer = masterCustomer;
     }
 
     public LocalDateTime getOrderDate() {

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,11 +22,11 @@ public class TransactionOrderTeam {
     @Column(name = "orderId")
     private int orderId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "teamId", nullable = false, insertable = false, updatable = false)
     private MasterTeam masterTeam;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "orderId", nullable = false, insertable = false, updatable = false)
     private TransactionOrder transactionOrder;
 
@@ -53,19 +54,7 @@ public class TransactionOrderTeam {
         this.id = id;
     }
 
-    public MasterTeam getMasterTeam() {
-        return masterTeam;
-    }
-
     public void setMasterTeam(MasterTeam masterTeam) {
         this.masterTeam = masterTeam;
-    }
-
-    public TransactionOrder getTransactionOrder() {
-        return transactionOrder;
-    }
-
-    public void setTransactionOrder(TransactionOrder transactionOrder) {
-        this.transactionOrder = transactionOrder;
     }
 }

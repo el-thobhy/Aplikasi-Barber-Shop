@@ -53,10 +53,6 @@ public class TransactionOrderServices {
         this.id = id;
     }
 
-    public TransactionOrder getTransactionOrder() {
-        return transactionOrder;
-    }
-
     public void setTransactionOrder(TransactionOrder transactionOrder) {
         this.transactionOrder = transactionOrder;
     }
