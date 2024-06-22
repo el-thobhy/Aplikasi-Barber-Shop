@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,7 +26,7 @@ public class TransactionOrderServices {
     @JoinColumn(name = "orderId", nullable = false, insertable = false, updatable = false)
     private TransactionOrder transactionOrder;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "serviceId", nullable = false, insertable = false, updatable = false)
     private MasterServices masterServices;
 
