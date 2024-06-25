@@ -1,0 +1,43 @@
+<div layout:fragment="content" class="card">
+  <div class="card-body text-center">
+    Do You want to DELETE Category
+    <span th:text="${fill.serviceName}"></span> With ID =
+    <span th:text="${fill.id}"></span>
+  </div>
+  <form id="formDeleteConfirm">
+    <div class="d-flex justify-content-end card-footer">
+      <button type="button" class="btn btn-info me-2">Cancel</button>
+      &nbsp;
+      <button type="submit" class="btn btn-danger">Delete</button>
+      <input type="hidden" name="id" id="id" th:value="${fill.id}" />
+    </div>
+  </form>
+</div>
+
+<script>
+  $(".card-footer > .btn-info").click(function () {
+    // $(".modal-header > .btn-close").click();//atau
+    $(".modal-header > .btn-close").trigger("click"); //atau
+  });
+  $("#formDeleteConfirm").submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/services/deleteAction",
+      type: "post",
+      data: $("#formDeleteConfirm").serialize(),
+      beforeSend: () => {},
+      success: function (res) {
+        // debugger;
+        alert(res);
+        console.log(res);
+        location.reload();
+      },
+      error: function (err) {
+        debugger;
+        alert("gagal " + err.responseText);
+        console.log(err);
+        location.reload();
+      },
+    });
+  });
+</script>

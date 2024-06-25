@@ -1,0 +1,80 @@
+<fieldset>
+  <form id="frmNewServices">
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input class="form-control" type="text" name="serviceName" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <input class="form-control" type="text" name="description" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Price</label>
+      <input class="form-control" type="number" name="price" />
+    </div>
+    <div>
+      <button type="submit" class="mt-3 btn btn-primary" value="Save">
+        <i class="fas fa-save"></i>
+        Save
+      </button>
+    </div>
+  </form>
+</fieldset>
+<script>
+  $("#frmNewServices").validate({
+    errorClass: "text-danger",
+    rules: {
+      serviceName: {
+        required: true,
+      },
+      description: {
+        required: true,
+      },
+      price: {
+        required: true,
+      },
+    },
+    // submitHandler: function (form) {
+    //   debugger;
+    //   var formData = $(form).serialize();
+    //   console.log(JSON.stringify(formData));
+    //   $.ajax({
+    //     url: "http://localhost:8080/api/Services",
+    //     type: "post",
+    //     data: JSON.stringify(formData),
+    //     dataType: "json",
+    //     success: function (res) {
+    //       alert("berhasil ");
+    //     },
+    //     error: function (err) {
+    //       alert("gagal " + err);
+    //       console.log(err);
+    //     },
+    //   });
+    // },
+  });
+  $("#frmNewServices").submit(function (e) {
+    e.preventDefault();
+    if ($("#frmNewServices").valid()) {
+      $.ajax({
+        url: "/services/save",
+        type: "post",
+        data: $("#frmNewServices").serialize(),
+        dataType: "json",
+        beforeSend: () => {},
+        success: function (res) {
+          debugger;
+          console.log(res);
+          location.reload();
+        },
+        error: function (err) {
+          debugger;
+          alert("gagal " + err);
+          console.log(err);
+        },
+      });
+    }
+  });
+</script>

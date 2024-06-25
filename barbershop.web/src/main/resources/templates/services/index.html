@@ -1,0 +1,90 @@
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <title>Services</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <div>
+        <div class="d-flex justify-content-between my-1">
+          <div class="h1">Services List</div>
+          <div>
+            <button
+              th:value="${'/services/add'}"
+              class="btn btn-sm m-2 btn-success"
+            >
+              <i class="bg-success rouded fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="col-1">ID</th>
+                <th class="col-2">Service Name</th>
+                <th class="col-3">Description</th>
+                <th class="col-3">Price</th>
+                <th class="col-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${#lists.size(data)>0}" th:each="i:${data}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.serviceName}"></td>
+                <td th:text="${i.description}"></td>
+                <td th:text="${i.price}"></td>
+                <td>
+                  <div class="btn-group">
+                    <button
+                      th:value="${'/services/edit/'+i.id}"
+                      class="btn btn-info"
+                      data-id="Edit"
+                    >
+                      <i class="fas fa-pen-to-square"></i>
+                    </button>
+                    <button
+                      th:value="${'/services/delete/'+i.id}"
+                      class="btn btn-danger"
+                      data-id="Delete"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <span
+                th:if="${errorMessage != ''}"
+                th:text="${errorMessage}"
+                class="text-danger"
+              ></span>
+              <span th:unless="${errorMessage != ''}"></span>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <script>
+        $(".btn-success").click(function (e) {
+          $("#modalLgBody").load(this.value);
+          $("#modalLgLabel").text("Services Add");
+          $("#modalLg").modal("show");
+          // console.log(this.value);
+        });
+        $(".btn-group > .btn-info").click(function () {
+          $("#modalLgBody").load(this.value);
+          $("#modalLgLabel").text("Services Edit");
+          $("#modalLg").modal("show");
+        });
+        //delete modal
+        $(".btn-group > .btn-danger").click(function (e) {
+          $("#modalLgBody").load(this.value);
+          $("#modalLgLabel").text("Services delete");
+          $("#modalLg").modal("show");
+        });
+      </script>
+    </div>
+  </body>
+</html>
