@@ -44,7 +44,7 @@ public class TeamApiController {
         try {
             List<MasterTeam> result = teamSvc.read();
             if (!result.isEmpty()) {
-                return new ResponseEntity<>(result, HttpStatus.CREATED);
+                return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("error get data", HttpStatus.NO_CONTENT);
             }
