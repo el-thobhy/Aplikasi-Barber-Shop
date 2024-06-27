@@ -1,0 +1,89 @@
+<fieldset>
+  <form id="frmUpdateCustomer">
+    <div class="form-group">
+      <input type="hidden" name="id" th:value="${fill.id}" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="name"
+        th:value="${fill.name}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input
+        class="form-control"
+        type="text"
+        name="email"
+        th:value="${fill.email}"
+      />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone</label>
+      <input
+        class="form-control"
+        type="text"
+        name="phone"
+        th:value="${fill.phone}"
+      />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Address</label>
+      <input
+        class="form-control"
+        type="text"
+        name="address"
+        th:value="${fill.address}"
+      />
+    </div>
+    <div>
+      <button type="submit" class="mt-3 btn btn-primary" value="Save">
+        <i class="fas fa-save"></i>
+        Save
+      </button>
+    </div>
+  </form>
+</fieldset>
+<script>
+  $("#frmUpdateCustomer").validate({
+    errorClass: "text-danger",
+    rules: {
+      name: {
+        required: true,
+      },
+      address: {
+        required: true,
+      },
+      phone: {
+        required: true,
+      },
+      email: {
+        required: true,
+      },
+    },
+  });
+  $("#frmUpdateCustomer").submit(function (e) {
+    e.preventDefault();
+    if ($("#frmUpdateCustomer").valid()) {
+      $.ajax({
+        url: "/customers/update",
+        type: "post",
+        data: $("#frmUpdateCustomer").serialize(),
+        beforeSend: () => {},
+        success: function (res) {
+          console.log(res);
+          location.reload();
+        },
+        error: function (err) {
+          debugger;
+          alert("gagal " + err);
+          console.log(err);
+        },
+      });
+    }
+  });
+</script>
